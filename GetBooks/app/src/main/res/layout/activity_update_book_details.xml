@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateBookDetails">
+
+    <TextView
+        android:id="@+id/textView_update_title_label"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/title"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/editText_update_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/editText_update_title"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="42dp"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="36dp" />
+
+    <EditText
+        android:id="@+id/editText_update_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="24dp"
+        android:text="The Trials of Apollo Book Two The Dark Prophecy"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="48dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="104dp" />
+
+    <TextView
+        android:id="@+id/textView_update_ISBN_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ISBN:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/editText_update_ISBN"
+        app:layout_constraintRight_toRightOf="@id/textView_update_title_label"
+        app:layout_constraintBottom_toBottomOf="@id/editText_update_ISBN"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginTop="12dp"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <EditText
+        android:id="@+id/editText_update_ISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:layout_marginTop="12dp"
+        android:text="9999999999999"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintTop_toBottomOf="@id/editText_update_title"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="48dp"
+        app:layout_goneMarginLeft="12dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="104dp" />
+
+    <TextView
+        android:id="@+id/textView_update_author_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/editText_update_author"
+        app:layout_constraintRight_toRightOf="@id/textView_update_title_label"
+        app:layout_constraintBottom_toBottomOf="@id/editText_update_author"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginTop="12dp"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="191dp" />
+
+    <EditText
+        android:id="@+id/editText_update_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:layout_marginTop="12dp"
+        android:text="Ricky Role"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintTop_toBottomOf="@id/editText_update_ISBN"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="48dp"
+        app:layout_goneMarginLeft="12dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+
+
+</android.support.constraint.ConstraintLayout>
