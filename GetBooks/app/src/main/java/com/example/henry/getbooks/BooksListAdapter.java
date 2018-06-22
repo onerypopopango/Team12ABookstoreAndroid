@@ -3,7 +3,10 @@ package com.example.henry.getbooks;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,13 @@ public class BooksListAdapter
         private TextView titleTextView;
         private ImageView imageView;
 
+        private String title;
+        private String author;
+        private double price;
+        private int bookID;
+        private long ISBN;
+        private int stock;
+
         public BooksListViewHolder(View itemView) {
             super(itemView);
 
@@ -40,7 +50,12 @@ public class BooksListAdapter
             final Context context = v.getContext();
 
             Intent intent = new Intent(context, BookDetails.class);
-
+            intent.putExtra("Title", title);
+            intent.putExtra("Author", author);
+            intent.putExtra("Price", price);
+            intent.putExtra("BookID", bookID);
+            intent.putExtra("ISBN", ISBN);
+            intent.putExtra("Stock", stock);
             ((Activity) context).startActivity(intent);
 
         }
@@ -62,8 +77,16 @@ public class BooksListAdapter
     public void onBindViewHolder(@NonNull BooksListViewHolder holder, int position) {
 
         Book current = mBooksList.get(position);
+        String strISBN = String.valueOf(current.getISBN());
         holder.titleTextView.setText(current.getTitle());
-        holder.imageView.setImageResource(R.drawable.test);
+        holder.imageView.setImageBitmap(current.getBitmap());
+
+        holder.title = current.getTitle();
+        holder.author = current.getAuthor();
+        holder.price = current.getPrice();
+        holder.bookID = current.getBookID();
+        holder.ISBN = current.getISBN();
+        holder.stock = current.getStock();
 
     }
 

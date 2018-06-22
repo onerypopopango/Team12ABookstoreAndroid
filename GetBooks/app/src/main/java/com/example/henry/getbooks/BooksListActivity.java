@@ -1,6 +1,8 @@
 package com.example.henry.getbooks;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,15 +36,11 @@ public class BooksListActivity extends AppCompatActivity {
         setTitle(getString(R.string.list_of_allbooks));
 
         mRecyclerViewBooksList = (RecyclerView) findViewById(R.id.recyclerview_bookslist);
-        booksList = new ArrayList<Book>();
-        booksList.add(new Book("TitleA", "AuthorA", 2));
-        booksList.add(new Book("TitleB", "AuthorB", 3));
-        booksList.add(new Book("TitleC", "AuthorC", 4));
 
-        adapter = new BooksListAdapter(this, booksList);
-        mRecyclerViewBooksList.setAdapter(adapter);
-//        mRecyclerViewBooksList.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
+        new GetHttpResponse().execute();
+
+
+
 
     }
 
@@ -62,6 +60,25 @@ public class BooksListActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class GetHttpResponse extends AsyncTask<Void, Void, List<Book>>{
+        @Override
+        protected List<Book> doInBackground(Void... params) {
+            List<Book> listOfBooks = Book.listBooks();
+
+            for(Book book : listOfBooks){
+                Bitmap bitmap = Book.getPhoto(String.valueOf(book.getISBN()));
+                book.setBitmap(bitmap);
+            }
+            return listOfBooks;
+        }
+        @Override
+        protected void onPostExecute(List<Book> result) {
+            adapter = new BooksListAdapter(BooksListActivity.this, result);
+            mRecyclerViewBooksList.setAdapter(adapter);
+            mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(BooksListActivity.this, 2, LinearLayoutManager.VERTICAL, false));
         }
     }
 

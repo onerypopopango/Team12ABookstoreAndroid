@@ -27,14 +27,14 @@ public class SearchActivity extends AppCompatActivity {
         setTitle("Search");
 
         mRecyclerViewBooksList = (RecyclerView) findViewById(R.id.recyclerview_search_book);
-        booksList = new ArrayList<Book>();
-        booksList.add(new Book("TitleA", "AuthorA", 2));
-        booksList.add(new Book("TitleB", "AuthorB", 3));
-
-        adapter = new BooksListAdapter(this, booksList);
-        mRecyclerViewBooksList.setAdapter(adapter);
-//        mRecyclerViewBooksList.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
+//        booksList = new ArrayList<Book>();
+//        booksList.add(new Book("TitleA", "AuthorA", 2));
+//        booksList.add(new Book("TitleB", "AuthorB", 3));
+//
+//        adapter = new BooksListAdapter(this, booksList);
+//        mRecyclerViewBooksList.setAdapter(adapter);
+////        mRecyclerViewBooksList.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
 
 
 
