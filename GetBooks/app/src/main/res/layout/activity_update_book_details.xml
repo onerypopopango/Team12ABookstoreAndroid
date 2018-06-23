@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateBookDetails">
+    tools:context=".UpdateBookDetailsActivity">
 
     <TextView
         android:id="@+id/textView_update_title_label"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:layout_marginTop="12dp"
         android:text="Ricky Role"
         android:layout_marginLeft="12dp"

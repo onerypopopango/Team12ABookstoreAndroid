@@ -3,10 +3,7 @@ package com.example.henry.getbooks;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +46,7 @@ public class BooksListAdapter
 
             final Context context = v.getContext();
 
-            Intent intent = new Intent(context, BookDetails.class);
+            Intent intent = new Intent(context, BookDetailsActivity.class);
             intent.putExtra("Title", title);
             intent.putExtra("Author", author);
             intent.putExtra("Price", price);

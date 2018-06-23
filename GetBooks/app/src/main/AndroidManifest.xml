@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.henry.getbooks">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,13 +18,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BookDetails" />
         <activity
-            android:windowSoftInputMode="stateUnchanged"
-            android:name=".SearchActivity">
-
+            android:launchMode="singleTop"
+            android:parentActivityName=".BooksListActivity"
+            android:name=".BookDetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BooksListActivity" />
         </activity>
-        <activity android:name=".UpdateBookDetails"></activity>
+        <activity
+            android:parentActivityName=".BooksListActivity"
+            android:name=".SearchActivity"
+            android:windowSoftInputMode="stateUnchanged">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BooksListActivity" />
+        </activity>
+        <activity
+            android:parentActivityName=".BookDetailsActivity"
+            android:name=".UpdateBookDetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BookDetailsActivity" />
+        </activity>
+
+        <activity
+            android:parentActivityName=".BooksListActivity"
+            android:name=".PreferencesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BooksListActivity" />
+        </activity>
     </application>
 
 </manifest>

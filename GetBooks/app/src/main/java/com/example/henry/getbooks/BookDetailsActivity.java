@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class BookDetails extends AppCompatActivity {
+public class BookDetailsActivity extends AppCompatActivity {
 
     private Button editButton;
 
@@ -28,6 +28,8 @@ public class BookDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_details);
+
+        setTitle(getString(R.string.book_details));
 
         Intent data = getIntent();
 
@@ -50,13 +52,11 @@ public class BookDetails extends AppCompatActivity {
         stockTextView.setText("" + stock);
         priceTextView.setText("$" + price);
 
-
-
         editButton = (Button) findViewById(R.id.button_details_edit);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), UpdateBookDetails.class);
+                Intent intent = new Intent(getApplicationContext(), UpdateBookDetailsActivity.class);
                 intent.putExtra("Title", title);
                 intent.putExtra("Author", author);
                 intent.putExtra("Price", price);
