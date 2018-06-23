@@ -53,7 +53,7 @@ public class Book{
         List<Book> list = new ArrayList<Book>();
         try {
 
-            final String host = "http://" + IPAddress + "/booksca/WCFService.svc";
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
 //            JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
 
             JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
@@ -87,7 +87,7 @@ public class Book{
         List<Book> list = new ArrayList<Book>();
         try {
 
-            final String host = "http://" + IPAddress + "/booksca/WCFService.svc";
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
 
             JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books/"+searchValue);
             JSONObject jsonObject;
@@ -120,7 +120,7 @@ public class Book{
 
     public static Bitmap getPhoto(String id, String IPAddress) {
         try {
-            final String imageURL = "http://" + IPAddress + "/booksca/images";
+            final String imageURL = "http://" + IPAddress + "/GetBooks/images";
 
             URL url = new URL(String.format("%s/%s.jpg",imageURL, id));
             URLConnection conn = url.openConnection();
