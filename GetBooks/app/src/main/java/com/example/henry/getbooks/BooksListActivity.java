@@ -1,8 +1,10 @@
 package com.example.henry.getbooks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -22,11 +25,9 @@ import java.util.List;
 
 public class BooksListActivity extends AppCompatActivity {
 
-    private ArrayAdapter<String> categoryListAdapter;
-    private Spinner mCategoryListSpinner;
     private RecyclerView mRecyclerViewBooksList;
     private BooksListAdapter adapter;
-    private List<Book> booksList;
+    private String IPAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,11 @@ public class BooksListActivity extends AppCompatActivity {
 
         mRecyclerViewBooksList = (RecyclerView) findViewById(R.id.recyclerview_bookslist);
 
+        SharedPreferences pref;
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        IPAddress = pref.getString("IPAddress", "172.17.170.88");
+
         new GetHttpResponse().execute();
-
-
-
 
     }
 
@@ -58,6 +60,10 @@ public class BooksListActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.settings:
+                Intent intentSettings = new Intent(this, PreferencesActivity.class);
+                startActivity(intentSettings);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -66,10 +72,10 @@ public class BooksListActivity extends AppCompatActivity {
     private class GetHttpResponse extends AsyncTask<Void, Void, List<Book>>{
         @Override
         protected List<Book> doInBackground(Void... params) {
-            List<Book> listOfBooks = Book.listBooks();
+            List<Book> listOfBooks = Book.listBooks(IPAddress);
 
             for(Book book : listOfBooks){
-                Bitmap bitmap = Book.getPhoto(String.valueOf(book.getISBN()));
+                Bitmap bitmap = Book.getPhoto(String.valueOf(book.getISBN()), IPAddress);
                 book.setBitmap(bitmap);
             }
             return listOfBooks;

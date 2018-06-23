@@ -1,8 +1,10 @@
 package com.example.henry.getbooks;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -19,8 +21,8 @@ import java.util.List;
 
 public class Book{
 
-    final static String host = "http://172.17.170.88/booksca/WCFService.svc";
-    final static String imageURL = "http://172.17.170.88/booksca/images";
+//    final static String host = "http://192.168.1.9/booksca/WCFService.svc";
+//    final static String imageURL = "http://192.168.1.9/booksca/images";
 
     private String title;
     private String author;
@@ -47,9 +49,13 @@ public class Book{
         this.stock = stock;
     }
 
-    public static List<Book> listBooks() {
+    public static List<Book> listBooks(String IPAddress) {
         List<Book> list = new ArrayList<Book>();
         try {
+
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
+//            JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
+
             JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
             JSONObject jsonObject;
             String dataTitle = null;
@@ -77,18 +83,53 @@ public class Book{
         return list;
     }
 
-    public static Bitmap getPhoto(String id) {
+    public static List<Book> searchBookByName(String searchValue, String IPAddress) {
+        List<Book> list = new ArrayList<Book>();
         try {
-            URL url = new URL(String.format("%s/%s.jpg",imageURL, id));
-//            URL url = new URL(String.format("http://172.17.170.88/booksca/images/9780060555665.jpg"));
 
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
+
+            JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books/"+searchValue);
+            JSONObject jsonObject;
+            String dataTitle = null;
+            String dataAuthor = null;
+            double dataPrice = 0;
+            int dataBookID = 0;
+            long dataISBN = 0;
+            int dataStock = 0;
+
+            for(int i = 0; i < jsonArray.length(); i++){
+
+                jsonObject = jsonArray.getJSONObject(i);
+                dataTitle = jsonObject.getString("Title");
+                dataAuthor = jsonObject.getString("Author");
+                dataPrice = jsonObject.getDouble("Price");
+                dataBookID = jsonObject.getInt("BookID");
+                dataISBN = jsonObject.getLong("ISBN");
+                dataStock = jsonObject.getInt("Stock");
+                Book book = new Book(dataTitle, dataAuthor, dataPrice, dataBookID, dataISBN, dataStock);
+                list.add(book);
+            }
+
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+
+
+    public static Bitmap getPhoto(String id, String IPAddress) {
+        try {
+            final String imageURL = "http://" + IPAddress + "/GetBooks/images";
+
+            URL url = new URL(String.format("%s/%s.jpg",imageURL, id));
             URLConnection conn = url.openConnection();
             InputStream ins = conn.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(ins);
             ins.close();
             return bitmap;
         } catch (Exception e) {
-            Log.e("Employee.getPhoto()", "Bitmap error");
+            Log.e("Book.getPhoto()", "Bitmap error");
         }
         return(null);
     }
