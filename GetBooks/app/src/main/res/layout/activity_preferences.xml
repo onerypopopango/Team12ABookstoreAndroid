@@ -11,7 +11,7 @@
         android:id="@+id/textView_ipAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IP Address" />
+        android:text="@string/ip_address" />
 
     <EditText
         android:id="@+id/editText_ipAddress"
@@ -27,6 +27,6 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Update" />
+        android:text="@string/update" />
 
 </LinearLayout>

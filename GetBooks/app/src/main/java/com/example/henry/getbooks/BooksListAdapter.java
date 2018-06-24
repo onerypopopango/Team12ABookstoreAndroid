@@ -31,6 +31,7 @@ public class BooksListAdapter
         private int bookID;
         private long ISBN;
         private int stock;
+        private int categoryID;
 
         public BooksListViewHolder(View itemView) {
             super(itemView);
@@ -53,6 +54,7 @@ public class BooksListAdapter
             intent.putExtra("BookID", bookID);
             intent.putExtra("ISBN", ISBN);
             intent.putExtra("Stock", stock);
+            intent.putExtra("CategoryID", categoryID);
             ((Activity) context).startActivity(intent);
 
         }
@@ -74,7 +76,6 @@ public class BooksListAdapter
     public void onBindViewHolder(@NonNull BooksListViewHolder holder, int position) {
 
         Book current = mBooksList.get(position);
-        String strISBN = String.valueOf(current.getISBN());
         holder.titleTextView.setText(current.getTitle());
         holder.imageView.setImageBitmap(current.getBitmap());
 
@@ -84,7 +85,7 @@ public class BooksListAdapter
         holder.bookID = current.getBookID();
         holder.ISBN = current.getISBN();
         holder.stock = current.getStock();
-
+        holder.categoryID = current.getCategoryID();
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -21,15 +22,13 @@ import java.util.List;
 
 public class Book{
 
-//    final static String host = "http://192.168.1.9/booksca/WCFService.svc";
-//    final static String imageURL = "http://192.168.1.9/booksca/images";
-
     private String title;
     private String author;
     private double price;
     private int bookID;
     private long ISBN;
     private int stock;
+    private int categoryID;
     private Bitmap bitmap;
 
     public Bitmap getBitmap() {
@@ -40,21 +39,21 @@ public class Book{
         this.bitmap = bitmap;
     }
 
-    public Book(String title, String author, double price, int bookID, long ISBN, int stock){
+    public Book(String title, String author, double price, int bookID, long ISBN, int stock, int categoryID){
         this.title = title;
         this.author = author;
         this.price = price;
         this.bookID = bookID;
         this.ISBN = ISBN;
         this.stock = stock;
+        this.categoryID = categoryID;
     }
 
     public static List<Book> listBooks(String IPAddress) {
         List<Book> list = new ArrayList<Book>();
         try {
 
-            final String host = "http://" + IPAddress + "/booksca/WCFService.svc";
-//            JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
 
             JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books");
             JSONObject jsonObject;
@@ -64,18 +63,20 @@ public class Book{
             int dataBookID = 0;
             long dataISBN = 0;
             int dataStock = 0;
-
+            int dataCategoryID = 0;
 
             for (int i=0; i<jsonArray.length(); i++) {
 
                 jsonObject = jsonArray.getJSONObject(i);
+
                 dataTitle = jsonObject.getString("Title");
                 dataAuthor = jsonObject.getString("Author");
                 dataPrice = jsonObject.getDouble("Price");
                 dataBookID = jsonObject.getInt("BookID");
                 dataISBN = jsonObject.getLong("ISBN");
                 dataStock = jsonObject.getInt("Stock");
-                Book book = new Book(dataTitle, dataAuthor, dataPrice, dataBookID, dataISBN, dataStock);
+                dataCategoryID = jsonObject.getInt("CategoryID");
+                Book book = new Book(dataTitle, dataAuthor, dataPrice, dataBookID, dataISBN, dataStock, dataCategoryID);
                 list.add(book);
             }
         } catch (Exception e) {
@@ -87,7 +88,7 @@ public class Book{
         List<Book> list = new ArrayList<Book>();
         try {
 
-            final String host = "http://" + IPAddress + "/booksca/WCFService.svc";
+            final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
 
             JSONArray jsonArray = JSONParser.getJSONArrayFromUrl(host+"/Books/"+searchValue);
             JSONObject jsonObject;
@@ -97,6 +98,7 @@ public class Book{
             int dataBookID = 0;
             long dataISBN = 0;
             int dataStock = 0;
+            int dataCategoryID = 0;
 
             for(int i = 0; i < jsonArray.length(); i++){
 
@@ -107,7 +109,8 @@ public class Book{
                 dataBookID = jsonObject.getInt("BookID");
                 dataISBN = jsonObject.getLong("ISBN");
                 dataStock = jsonObject.getInt("Stock");
-                Book book = new Book(dataTitle, dataAuthor, dataPrice, dataBookID, dataISBN, dataStock);
+                dataCategoryID = jsonObject.getInt("CategoryID");
+                Book book = new Book(dataTitle, dataAuthor, dataPrice, dataBookID, dataISBN, dataStock, dataCategoryID);
                 list.add(book);
             }
 
@@ -116,11 +119,9 @@ public class Book{
         return list;
     }
 
-
-
     public static Bitmap getPhoto(String id, String IPAddress) {
         try {
-            final String imageURL = "http://" + IPAddress + "/booksca/images";
+            final String imageURL = "http://" + IPAddress + "/GetBooks/images";
 
             URL url = new URL(String.format("%s/%s.jpg",imageURL, id));
             URLConnection conn = url.openConnection();
@@ -134,7 +135,36 @@ public class Book{
         return(null);
     }
 
+    public static void updateBook(Book book, String IPAddress){
+        final String host = "http://" + IPAddress + "/GetBooks/WCFService.svc";
 
+        JSONObject jBook = new JSONObject();
+
+        try {
+            jBook.put("Author", book.getAuthor());
+            jBook.put("BookID", book.getBookID());
+            jBook.put("CategoryID", book.getCategoryID());
+            jBook.put("ISBN1", book.getISBN());
+            jBook.put("Price", book.getPrice());
+            jBook.put("Stock", book.getStock());
+            jBook.put("Title", book.getTitle());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String result = JSONParser.postStream(host+"/Update", jBook.toString());
+
+    }
+
+
+
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 
     public String getTitle() {
         return title;

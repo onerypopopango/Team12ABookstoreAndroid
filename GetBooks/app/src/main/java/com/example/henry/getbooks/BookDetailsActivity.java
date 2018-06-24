@@ -16,6 +16,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     private TextView authorTextView;
     private TextView stockTextView;
     private TextView priceTextView;
+    private TextView categoryIDTextView;
 
     private String title;
     private String author;
@@ -23,6 +24,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     private int bookID;
     private long ISBN;
     private int stock;
+    private int categoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +41,21 @@ public class BookDetailsActivity extends AppCompatActivity {
         bookID = data.getIntExtra("BookID", 0);
         ISBN = data.getLongExtra("ISBN", 0);
         stock = data.getIntExtra("Stock", 0);
+        categoryID = data.getIntExtra("CategoryID", 0);
 
         titleTextView = findViewById(R.id.textView_title);
         ISBNTextView = findViewById(R.id.textView_ISBN);
         authorTextView = findViewById(R.id.textView_author);
         stockTextView = findViewById(R.id.textView_stock);
         priceTextView = findViewById(R.id.textView_price);
+        categoryIDTextView = findViewById(R.id.textView_categoryID);
 
         titleTextView.setText(title);
         ISBNTextView.setText("" + ISBN);
         authorTextView.setText(author);
         stockTextView.setText("" + stock);
-        priceTextView.setText("$" + price);
+        priceTextView.setText(String.format("$%.2f", price));
+        categoryIDTextView.setText(""+ categoryID);
 
         editButton = (Button) findViewById(R.id.button_details_edit);
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +68,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                 intent.putExtra("BookID", bookID);
                 intent.putExtra("ISBN", ISBN);
                 intent.putExtra("Stock", stock);
+                intent.putExtra("CategoryID", categoryID);
                 startActivity(intent);
             }
         });

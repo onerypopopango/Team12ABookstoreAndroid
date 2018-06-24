@@ -28,9 +28,6 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
         Button b = (Button) findViewById(R.id.button1);
         b.setOnClickListener(this);
 
-//        String IPAddress = pref.getString("IPAddress", "172.17.170.88");
-
-
     }
 
     @Override

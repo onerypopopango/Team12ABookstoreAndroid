@@ -7,4 +7,13 @@
     <string name="book_details">Book Details</string>
     <string name="search_book">Search Book</string>
     <string name="update_book_details">Update Book Details</string>
+    <string name="isbn">ISBN:</string>
+    <string name="author">Author:</string>
+    <string name="stock">Stock:</string>
+    <string name="price">Price:</string>
+    <string name="category">Category:</string>
+    <string name="edit">Edit</string>
+    <string name="ip_address">IP Address</string>
+    <string name="update">Update</string>
+    <string name="title_hint">Title</string>
 </resources>
