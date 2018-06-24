@@ -74,7 +74,6 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

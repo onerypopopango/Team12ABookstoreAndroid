@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,6 +50,8 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation expandIn = AnimationUtils.loadAnimation(SearchActivity.this, R.anim.expand_in);
+                searchButton.startAnimation(expandIn);
                 String searchValue = searchTextbox.getText().toString();
 
                 new GetHttpResponse().execute(searchValue);
