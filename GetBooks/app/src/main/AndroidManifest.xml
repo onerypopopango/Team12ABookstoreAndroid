@@ -6,48 +6,51 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/getbookslogo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BooksListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
+            android:name=".BookDetailsActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".BooksListActivity"
-            android:name=".BookDetailsActivity" >
+            android:parentActivityName=".BooksListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BooksListActivity" />
         </activity>
         <activity
-            android:parentActivityName=".BooksListActivity"
             android:name=".SearchActivity"
+            android:parentActivityName=".BooksListActivity"
             android:windowSoftInputMode="stateUnchanged">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BooksListActivity" />
         </activity>
         <activity
-            android:parentActivityName=".BookDetailsActivity"
-            android:name=".UpdateBookDetailsActivity" >
+            android:name=".UpdateBookDetailsActivity"
+            android:parentActivityName=".BookDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BookDetailsActivity" />
         </activity>
-
         <activity
-            android:parentActivityName=".BooksListActivity"
-            android:name=".PreferencesActivity">
+            android:name=".PreferencesActivity"
+            android:parentActivityName=".BooksListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BooksListActivity" />
+        </activity>
+        <activity
+            android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
