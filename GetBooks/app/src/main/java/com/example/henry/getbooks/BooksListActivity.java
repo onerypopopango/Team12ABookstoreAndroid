@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class BooksListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerViewBooksList;
     private BooksListAdapter adapter;
     private String IPAddress;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class BooksListActivity extends AppCompatActivity {
         setTitle(getString(R.string.list_of_allbooks));
 
         mRecyclerViewBooksList = (RecyclerView) findViewById(R.id.recyclerview_bookslist);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_bookslist);
 
         SharedPreferences pref;
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -79,8 +82,10 @@ public class BooksListActivity extends AppCompatActivity {
             }
             return listOfBooks;
         }
+
         @Override
         protected void onPostExecute(List<Book> result) {
+            progressBar.setVisibility(View.GONE);
             adapter = new BooksListAdapter(BooksListActivity.this, result);
             mRecyclerViewBooksList.setAdapter(adapter);
             mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(BooksListActivity.this, 2, LinearLayoutManager.VERTICAL, false));
