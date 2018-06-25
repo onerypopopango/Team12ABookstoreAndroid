@@ -16,4 +16,7 @@
     <string name="ip_address">IP Address</string>
     <string name="update">Update</string>
     <string name="title_hint">Title</string>
+    <string name="dialog_exit">Are you sure you want to exit?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
 </resources>
