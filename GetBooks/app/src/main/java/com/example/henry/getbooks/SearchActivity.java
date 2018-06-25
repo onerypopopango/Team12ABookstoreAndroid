@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
     private String IPAddress;
     private ImageButton searchButton;
     private EditText searchTextbox;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class SearchActivity extends AppCompatActivity {
         setTitle(getString(R.string.search_book));
 
         mRecyclerViewBooksList = (RecyclerView) findViewById(R.id.recyclerview_search_book);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_search_book);
 
         SharedPreferences pref;
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -50,6 +53,8 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 Animation expandIn = AnimationUtils.loadAnimation(SearchActivity.this, R.anim.expand_in);
                 searchButton.startAnimation(expandIn);
                 String searchValue = searchTextbox.getText().toString();
@@ -73,6 +78,8 @@ public class SearchActivity extends AppCompatActivity {
     private class GetHttpResponse extends AsyncTask<String, Void, List<Book>> {
         @Override
         protected List<Book> doInBackground(String... params) {
+
+
             List<Book> listOfBooks = Book.searchBookByName(params[0], IPAddress);
 
             for(Book book : listOfBooks){
@@ -81,8 +88,10 @@ public class SearchActivity extends AppCompatActivity {
             }
             return listOfBooks;
         }
+
         @Override
         protected void onPostExecute(List<Book> result) {
+            progressBar.setVisibility(View.GONE);
             adapter = new BooksListAdapter(SearchActivity.this, result);
             mRecyclerViewBooksList.setAdapter(adapter);
             mRecyclerViewBooksList.setLayoutManager(new GridLayoutManager(SearchActivity.this, 2, LinearLayoutManager.VERTICAL, false));
